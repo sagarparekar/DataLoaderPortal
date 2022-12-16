@@ -35,7 +35,8 @@ public class AuthController {
 	AuthenticationManager authManager;
 	@Autowired 
 	JwtTokenUtil jwtUtil;
-	
+
+	// login method to generate barer token
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request) {
 		try {
