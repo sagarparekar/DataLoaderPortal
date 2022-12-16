@@ -1,0 +1,181 @@
+<div class="container" style="padding: 10px; size: 20px;align-content: flex-end;">
+    <button type="button" class="btn btn-danger" style="background-color: burlywood;float: right;"
+        (click)="navigateToPatient()">Back</button>
+</div>
+
+<div class="container" style="display: flex; justify-content: center; align-items: center;">
+    <h2>Please Enter Patient Name to Search</h2>
+</div>
+<br>
+<div class="container" style="display: flex; justify-content: center; align-items: center;">
+
+    <input type="text" placeholder="Enter Patient Name" [(ngModel)]="patientobj.patientName"> <br>
+    &nbsp;&nbsp;&nbsp;
+    <button mat-raised-button color="primary" (click)="getPatientByName(patientobj.patientName)">Search</button><br>
+    &nbsp;&nbsp;&nbsp;<div *ngIf="validsearch">
+        <mat-error>Please enter valid <span style="color:blue;font-weight:bold">Patient name</span></mat-error>
+    </div>
+</div>
+<!-- (click)="getPatientByName(patientobj.patientName)" data-bs-toggle="modal" data-bs-target="#searchModal"-->
+<div class="mat-elevation-z8" *ngIf="show">
+    <table>
+        <tr>
+            <th>Patient ID</th>
+
+            <th>Patient Name</th>
+
+            <th>Patient Address</th>
+
+            <th>Patient DOB</th>
+
+            <th>Patient Email</th>
+
+            <th>Patient Contact Number</th>
+
+            <th>Drug ID</th>
+
+            <th>Drug Name</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+
+            <td>{{patientId}}</td>
+
+            <td>{{patientName}}</td>
+
+            <td>{{patientAddress}}</td>
+
+            <td>{{patientDOB | date:"MM/dd/yyyy"}}</td>
+
+            <td>{{patientEmail}}</td>
+
+            <td>{{patientContactNumber}}</td>
+
+            <td>{{patientDrugId}}</td>
+
+            <td>{{patientDrugName}}</td>
+            <!-- <td><button data-bs-toggle="modal" data-bs-target="#updateModal">Update</button></td> -->
+
+            <td><button mat-fab color="primary" (click)="updatePatient()">Update</button></td>
+        </tr>
+
+    </table>
+
+</div>
+
+
+<div class="div-2" *ngIf="showform" style="text-align: center;">
+    <br><br>
+    <form [formGroup]="searchService.updateform">
+
+        <div class="controles-container">
+
+            <mat-form-field>
+                <label style="color: cornflowerblue;" for="patientName">Patient Name</label>
+                <input matInput formControlName="patientName" placeholder="Enter Patient Name" type="text" required
+                    name="patientName" readonly>
+                <mat-error>Invalid Patient Name</mat-error>
+            </mat-form-field><br>
+
+
+
+            <mat-form-field>
+                <label style="color: cornflowerblue;" for="patientAddress">Address</label>
+                <input formControlName="patientAddress" matInput placeholder="Enter Patient Address" type="text"
+                    required name="patientAddress">
+
+                <mat-error>Patient Address is required</mat-error>
+
+            </mat-form-field><br>
+
+            <mat-form-field>
+                <label style="color: cornflowerblue;" for="patientDOB">Date of Birth</label>
+                <input formControlName="patientDOB" matInput placeholder="Enter Date of Birth" type="text" required
+                    value="patientDOB" name="patientDOB">
+                <mat-error>Enter Past DOB(MM-dd-yyyy)</mat-error>
+            </mat-form-field><br>
+
+            <mat-form-field>
+                <label style="color: cornflowerblue;" for="patientEmail">Email</label>
+                <input formControlName="patientEmail" matInput placeholder="Enter Patient Email" type="email" required
+                    name="patientEmail">
+
+                <mat-error>Please enter valid email id</mat-error>
+
+            </mat-form-field><br>
+
+            <mat-form-field>
+                <label style="color: cornflowerblue;" for="patientContactNumber">Phone Number</label>
+                <input formControlName="patientContactNumber" matInput placeholder="Enter Patient contact number"
+                    type="text"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');"
+                    required name="patientContactNumber">
+
+                <mat-error>Enter valid contact number</mat-error>
+
+            </mat-form-field><br>
+
+            <button mat-raised-button color="primary" style="background-color: aqua; color: black;"
+                (click)="updatePatientDetails()">Update</button>
+
+        </div>
+
+    </form>
+</div>
+
+
+
+<!-- Update Modal-->
+
+
+<!-- <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="updateModalLabel">MODIFY THE PATIENT DETAILS</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="background-color: lightgray;">
+
+                <div>
+                    <form  #updateForm="ngForm" (ngSubmit)="updatePatientDetails(patientobj)"  >
+                       
+                        <div class="form-group">
+                            <label for="patientAddress">Address</label>
+                            <input name="patientAddress" id="patientAddress" class="form-control" type="text"
+                              value="{{patientAddress}}"  [(ngModel)]="patientobj.patientAddress" required>
+                        </div>
+        
+                        <br>
+                        <div class="form-group">
+                            <label for="patientDOB">Date Of Birth</label>
+                            <input name="patientDOB" id="patientDOB" class="form-control" type="text"
+                                value="{{patientDOB}}" [(ngModel)]="patientobj.patientDOB" required>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label for="patientEmail">Email Id</label>
+                            <input name="patientEmail" id="patientEmail" class="form-control" type="email"
+                                value="{{patientEmail}}" [(ngModel)]="patientobj.patientEmail" required>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label for="patientContactNumber">Phone Number</label>
+                            <input name="patientContactNumber" id="patientContactNumber" class="form-control"
+                                type="number" value="{{patientContactNumber}}"
+                                [(ngModel)]="patientobj.patientContactNumber" required>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary" (click)="showMessageSoon()" >Save</button> <br><p *ngIf="showMyMessage">Patient Details Updated Successfully!!</p>
+                       
+                    </form> 
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

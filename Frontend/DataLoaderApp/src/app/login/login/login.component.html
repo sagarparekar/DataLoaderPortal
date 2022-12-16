@@ -1,0 +1,44 @@
+
+<div class="container" style="display: flex; justify-content: center; align-items: center;max-width: 85%;height: 55vh; ">
+ 
+    <form [formGroup]="loginService.loginform" >
+      <br><br>
+      <label ><h2><b>Login</b></h2></label>
+
+        <div class="controles-container">
+           
+        <mat-form-field>
+          <label style="color: cornflowerblue;" for="username">Enter Username* </label>
+          <input
+            matInput formControlName="username"
+            type="text"
+            id="username"
+            required
+            name="username">
+            <mat-error>Invalid username</mat-error>
+        </mat-form-field><br>
+        
+        <mat-form-field> 
+          <label style="color: cornflowerblue;" for="password">Enter password* </label>
+          <input formControlName="password"
+            matInput
+            id="password"
+            type="password"
+            required
+            name="password">
+          <mat-error>password is required</mat-error>
+        </mat-form-field><br><br>
+        <button
+        mat-raised-button
+        color="primary"
+        class="login-button"
+        (click)="LoginUser()" [disabled]="loginService.loginform.invalid">
+        Login
+      </button>
+      <div *ngIf="validpassword">
+        <mat-error> <span style="color:red;font-weight:bold">Please enter valid Username & Password</span></mat-error>
+      </div>
+    </div>
+    </form>
+    </div>
+

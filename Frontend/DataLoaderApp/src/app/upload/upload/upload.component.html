@@ -1,0 +1,36 @@
+<div class="container" style="padding: 10px; size: 20px;align-content: flex-end;">
+    <button type="button" class="btn btn-danger" style="background-color: burlywood;float: right;"
+        (click)="navigateToPatient()">Back</button>
+</div>
+
+<div class="container" *ngIf="!flag" style="display: flex; justify-content: center; align-items: center;max-width: 85%;height: 60vh;">
+    <form style="background-color: azure;align-items: center;justify-content: center;border-radius: 10%;">
+        <br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label>
+            <h2 style="color: gray"><b>Upload Patient Details Here!</b></h2>
+        </label>
+        <br>
+
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input (change)="selectFile($event)" type="file" /><br>
+        <p style="color:red;text-align-last: center;">Please upload excel file only!!</p><br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button (click)="uploadFile()" class="btn"
+            mat-raised-button color="primary" (click)="showUploadMessage()">Upload</button>
+            <p *ngIf="showMyMessage">File Uploaded Successfully</p>
+            
+           
+        <br>
+        <br>
+        <br>
+        <br>
+    </form>
+   
+</div>
+<div class="container" *ngIf="flag" style="display: flex; justify-content: center; align-items: center;max-width: 85%;height: 60vh;">
+    <p>Please upload Valid Excel file Only</p>
+</div>
+

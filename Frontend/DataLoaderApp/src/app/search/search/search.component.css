@@ -1,0 +1,37 @@
+table {
+
+    border: 1px solid rgb(14, 14, 14);
+
+    border-collapse: collapse;
+
+    width: 100%;
+
+    text-align: left;
+
+  }
+
+
+
+  th{
+
+    color:  black;
+
+    background-color: silver;
+
+  }
+
+ 
+
+  th, td ,tr{
+
+    padding: 8px;
+
+    text-align: left;
+
+    border-bottom: 1px solid rgb(18, 15, 15);
+
+  }
+
+ 
+
+  tr:hover {background-color: slategray;}
